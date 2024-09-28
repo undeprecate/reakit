@@ -273,7 +273,8 @@ function makeGitignore(rootPath) {
  * @param {string} rootPath
  */
 function makePlaygroundDeps(rootPath) {
-  const { name } = getPackage(rootPath);
+  let { name } = getPackage(rootPath);
+  name = name.split("/")[1] || name;
   const playPath = join(__dirname, "../../packages/reakit-playground");
   const playDepsPath = join(getSourcePath(playPath), "__deps");
   const buildFolders = getBuildFolders(rootPath);
