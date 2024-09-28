@@ -33,6 +33,12 @@ export function Portal({ children }: PortalProps) {
     return null;
   });
 
+  const [isCSR, setIsCSR] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    setIsCSR(true);
+  }, []);
+
   useIsomorphicEffect(() => {
     if (!hostNode || !context) return undefined;
     context.appendChild(hostNode);
@@ -41,7 +47,7 @@ export function Portal({ children }: PortalProps) {
     };
   }, [hostNode, context]);
 
-  if (hostNode) {
+  if (isCSR && hostNode) {
     return ReactDOM.createPortal(
       <PortalContext.Provider value={hostNode}>
         {children}
